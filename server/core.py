@@ -67,5 +67,10 @@ class ServerProcessor(threading.Thread):
         """ Метод обработчик поступающих сообщений. """
         print('получено сообщение')
         parsed_msg = parse_message(message['test_data'])
-        self.database.add_point(message['device_id'], parsed_msg['params'][b'posinfo']['lat'],
-                                parsed_msg['params'][b'posinfo']['lon'])
+        self.database.add_point(message['device_id'],
+                                parsed_msg['params'][b'posinfo']['lat'],
+                                parsed_msg['params'][b'posinfo']['lon'],
+                                parsed_msg['params'][b'posinfo']['a'],
+                                parsed_msg['params'][b'posinfo']['s'],
+                                parsed_msg['params'][b'posinfo']['c'],
+                                parsed_msg['params'][b'posinfo']['sc'])

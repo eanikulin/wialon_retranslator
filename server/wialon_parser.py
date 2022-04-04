@@ -39,8 +39,8 @@ def parsePacket(packet):
         v = ''
         if data_type:
             if name == b'posinfo':
-                v = {'lat': 0, 'lon': 0, 'h': 0, 's': 0, 'c': 0, 'sc': 0}
-                (v['lon'], v['lat'], v['h']) = parse('d d d', block['data_block'])
+                v = {'lat': 0, 'lon': 0, 'a': 0, 's': 0, 'c': 0, 'sc': 0}
+                (v['lon'], v['lat'], v['a']) = parse('d d d', block['data_block'])
                 (v['s'], v['c'], v['sc']) = parse('> h h b', block['data_block'], 24)
 
         msg['params'][name] = v

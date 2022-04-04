@@ -8,12 +8,16 @@ import datetime
 class ServerStorage:
     # Класс - отображение таблицы Points
     class PointsView:
-        def __init__(self, device_id, latitude, longitude):
+        def __init__(self, device_id, latitude, longitude, altitude, speed, course, satellites):
             self.point_id = None
             self.device_id = device_id
             self.point_time = datetime.datetime.now()
             self.latitude = latitude
             self.longitude = longitude
+            self.altitude = altitude
+            self.speed = speed
+            self.course = course
+            self.satellites = satellites
 
     def __init__(self, path):
         # Создаём движок базы данных
@@ -31,6 +35,10 @@ class ServerStorage:
                              Column('point_time', DateTime),
                              Column('latitude', Float),
                              Column('longitude', Float),
+                             Column('altitude', Float),
+                             Column('speed', Integer),
+                             Column('course', Integer),
+                             Column('satellites', Integer),
                              )
 
         # Создаём таблицы
@@ -45,8 +53,8 @@ class ServerStorage:
         self.session.commit()
 
     # Функция выполняющаяся при входе пользователя, записывает в базу факт входа
-    def add_point(self, device_id, latitude, longitude):
-        point = self.PointsView(device_id, latitude, longitude)
+    def add_point(self, device_id, latitude, longitude, altitude, speed, course, satellites):
+        point = self.PointsView(device_id, latitude, longitude, altitude, speed, course, satellites)
         self.session.add(point)
         # Коммит здесь нужен, чтобы присвоился ID
         self.session.commit()
